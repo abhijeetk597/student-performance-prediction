@@ -71,24 +71,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
-          IMAGE_TAG: latest
+      - name: Login to Amazon ECR, Build, tag, and push image to Amazon ECR
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REPOSITORY .
-          docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ secrets.AWS_ECR_LOGIN_URI }}/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push ${{ secrets.AWS_ECR_LOGIN_URI }}/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::${{ secrets.AWS_ECR_LOGIN_URI }}/$ECR_REPOSITORY:$IMAGE_TAG"
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x3u2y2y5
+          docker build -t student-performance .
+          docker tag student-performance:latest public.ecr.aws/x3u2y2y5/student-performance:latest
+          docker push public.ecr.aws/x3u2y2y5/student-performance:latest
           
           
   Continuous-Deployment:
@@ -106,8 +94,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x3u2y2y5
       
       
       - name: Pull latest images
