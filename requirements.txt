@@ -6,5 +6,8 @@ matplotlib
 catboost
 xgboost
 dill
-flask
+fastapi
+uvicorn
+python-multipart
+pyyaml
 # -e .
