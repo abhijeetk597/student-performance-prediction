@@ -17,7 +17,15 @@ The objective of the project is to learn about end-to-end project implementation
 ## Video: Running docker image on Docker Engine
 
 
+https://github.com/abhijeetk597/student-performance-prediction/assets/138308825/f8d91398-4304-4d93-82c0-f8b368bc3088
+
+
+
 ## Video: Project deployed on AWS EC2 Instance using GitHub Actions
+
+
+https://github.com/abhijeetk597/student-performance-prediction/assets/138308825/8b056d15-c6f9-4870-8009-afa428a75a1d
+
 
 
 ## Acknowledgement
@@ -25,7 +33,7 @@ For this project I took inspiration from **Krish Naik**'s [Youtube Playlist](htt
 
 ## My contribution
 - Created model training pipeline
-- Hyperparameter tuning performed by reading parameters from YAML file
+- Hyperparameter tuning performed by reading parameters from `YAML` file
 - Created FASTApi server
 - Docker Image was pushed to and pulled from an **AWS ECR Public Repository**
 
